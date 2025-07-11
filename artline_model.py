@@ -40,21 +40,18 @@ class FeatureLoss(nn.Module):
 class ArtLineModel:
     def __init__(self):
         self.model = None
-        self.model_path = "ArtLine_650.pkl"
+        self.model_path = "Model/ArtLine_650.pkl"
         
-    def download_model(self):
-        """Télécharge le modèle ArtLine si nécessaire"""
+    def check_model(self):
+        """Vérifie que le modèle existe dans le dossier Model"""
         if not Path(self.model_path).exists():
-            print("Téléchargement du modèle ArtLine...")
-            MODEL_URL = "https://www.dropbox.com/s/starqc9qd2e1lg1/ArtLine_650.pkl?dl=1"
-            urllib.request.urlretrieve(MODEL_URL, self.model_path)
-            print("Modèle téléchargé avec succès!")
+            raise FileNotFoundError(f"Modèle non trouvé: {self.model_path}\nAssurez-vous que le fichier ArtLine_650.pkl est dans le dossier Model/")
     
     def load_model(self):
         """Charge le modèle ArtLine"""
-        self.download_model()
+        self.check_model()
         print("Chargement du modèle...")
-        path = Path(".")
+        path = Path("Model")
         self.model = load_learner(path, self.model_path)
         print("Modèle chargé avec succès!")
     
