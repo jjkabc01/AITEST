@@ -74,22 +74,33 @@ class VideoProcessor:
         print(f"Video created successfully: {output_path}")
         return True
         
-    def process_video(self, input_video, output_video):
+    def process_video(self, input_video, output_video, artline_model=None, progress_callback=None):
         """Main video processing pipeline"""
         try:
             self.setup_directories()
             
             print("Starting video to cartoon conversion...")
+            if progress_callback:
+                progress_callback(0, 4, "Initialisation")
             
             # Step 1: Extract frames
+            if progress_callback:
+                progress_callback(1, 4, "Extraction des frames")
             frames_dir = self.extract_frames(input_video)
             
             # Step 2: Process frames
+            if progress_callback:
+                progress_callback(2, 4, "Conversion en dessins")
             processed_dir = self.process_frames(frames_dir)
             
             # Step 3: Create output video
+            if progress_callback:
+                progress_callback(3, 4, "Création de la vidéo")
             self.create_video(processed_dir, output_video)
             
+            if progress_callback:
+                progress_callback(4, 4, "Terminé")
+                
             print("Video conversion completed successfully!")
             return True
             
