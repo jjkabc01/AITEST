@@ -3,7 +3,6 @@ Simplified main application for WebContainer environment
 """
 import os
 import sys
-from pathlib import Path
 
 def main():
     """Main application entry point"""
@@ -12,8 +11,8 @@ def main():
     print()
     
     # Check if model exists
-    model_path = Path("Model/ArtLine_650.pkl")
-    if model_path.exists():
+    model_path = os.path.join("Model", "ArtLine_650.pkl")
+    if os.path.exists(model_path):
         print("✓ ArtLine model found")
     else:
         print("✗ ArtLine model not found")
@@ -21,8 +20,10 @@ def main():
         return
     
     # Create necessary directories
-    Path("temp").mkdir(exist_ok=True)
-    Path("output").mkdir(exist_ok=True)
+    if not os.path.exists("temp"):
+        os.makedirs("temp")
+    if not os.path.exists("output"):
+        os.makedirs("output")
     
     print("✓ Directories created")
     print()

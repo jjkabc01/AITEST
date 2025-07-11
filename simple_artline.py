@@ -3,18 +3,17 @@ Simplified ArtLine implementation for WebContainer environment
 """
 import os
 import sys
-from pathlib import Path
 import json
 
 class SimpleArtLine:
     def __init__(self):
-        self.model_path = Path("Model")
+        self.model_path = "Model"
         self.model_loaded = False
         
     def load_model(self):
         """Simulate model loading"""
-        model_file = self.model_path / "ArtLine_650.pkl"
-        if model_file.exists():
+        model_file = os.path.join(self.model_path, "ArtLine_650.pkl")
+        if os.path.exists(model_file):
             print(f"Model found at: {model_file}")
             self.model_loaded = True
             return True
