@@ -5,7 +5,7 @@ import os
 import sys
 import json
 
-class SimpleVideoProcessor:
+class VideoProcessor:
     def __init__(self):
         self.temp_dir = "temp"
         self.output_dir = "output"
@@ -99,7 +99,7 @@ class SimpleVideoProcessor:
 
 def main():
     """Test the video processor"""
-    processor = SimpleVideoProcessor()
+    processor = VideoProcessor()
     
     # Simulate processing a video
     input_video = "input_video.mp4"
